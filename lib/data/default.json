@@ -1,0 +1,17 @@
+{
+    "srcPathName": "src",
+    "distPathName": "dist",
+    "tplOutName": "html",
+    "hashLength": 10,
+    "envs": {
+        "test": {
+            "cndDomain": "test.xxx.com"
+        },
+        "pre": {
+            "cndDomain": "pre.xxx.com"
+        },
+        "www": {
+            "cndDomain": "www.xxx.com"
+        }
+    }
+}
