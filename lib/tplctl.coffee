@@ -49,12 +49,12 @@ _buildHtml = (data)->
     _source = _replaceImg(_source)
 
     # 如果不是开发环境，则压缩html
-    if setting.env isnt 'dev'
+    if setting.env isnt 'dev' and setting.isMinify
         _source = Tools.htmlMinify(_source)
-        gutil.log color.cyan("'#{_name}'"),"combined."
-
+    
     Tools.mkdirsSync(path.dirname(_outPath))
     fs.writeFileSync(_outPath, _source, 'utf8')
+    gutil.log color.cyan("'#{_name}'"),"combined."
 
 # 模板构建控制器
 tplCtl = (file,cb)->

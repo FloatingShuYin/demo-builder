@@ -42,6 +42,8 @@ module.exports =
 
   # md5 hash长度
   hashLength: cfg.hashLength
+  # 是否压缩html
+  isMinify: cfg.isMinify
 
   # 生产目录
   tplOutPath: "#{_tplOutName}/"
