@@ -39,17 +39,12 @@ build =
         gutil.log color.green "Project init success!"
         
     # build less to CSS
-    less2css: (file,cb)->
+    less2css: (cb)->
         _lessPath = setting.lessPath
         _file = [
             path.join(_lessPath, '*.less'),
             "!#{path.join(_lessPath, '_*.less')}"
         ]
-        if typeof file is 'function'
-            _cb = file
-        else
-            _file = file or _file
-            _cb = cb or ->
         gulp.src(_file)
             .pipe plumber({errorHandler: Tools.errrHandler})
             .pipe less
@@ -57,7 +52,7 @@ build =
                     paths: [_lessPath]
             .pipe gulp.dest(setting.cssPath)
             .on 'end',-> 
-                _cb()
+                cb and cb()
     # build js to dist dir
     img2dist:(cb)->
         Tools.imgHash ->
@@ -84,7 +79,7 @@ build =
         tplCtl(_file,_cb)
 
     # build js to dist dir
-    js2dist:(file,cb)->
+    js2dist: (file,cb)->
         _file = "#{setting.jsPath}**/*.js"
         if typeof file is 'function'
             _cb = file
@@ -94,7 +89,7 @@ build =
         jsCtl(_file,_cb)
 
 
-    watch:->
+    watch: ->
         _this = @
         _list = []
         Watch setting.watchFiles,(file)->
@@ -108,15 +103,16 @@ build =
                         _type = Tools.getType(_file_path)
                         switch _type
                             when 'less'
-                                _this.less2css(_file_path)
+                                _this.less2css()
+                            when 'img'
+                                _this.img2dist()
                             when 'css'
                                 _this.css2dist(_file_path)
                             when 'js'
                                 _this.js2dist(_file_path)
                             when 'tpl'
                                 _this.tpl2dist(_file_path)
-                            when 'img'
-                                _this.img2dist()
+
                 # clear watch list after 3 seconds
                 clearTimeout watch_timer if watch_timer
                 watch_timer = setTimeout ->

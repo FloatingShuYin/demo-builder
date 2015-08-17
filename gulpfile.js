@@ -76,10 +76,10 @@ gulp.task('server', function() {
 });
 
 _builder = function(cb) {
-  return build.img2dist(function() {
-    return build.less2css(function() {
-      return build.js2dist(function() {
-        return build.css2dist(function() {
+  return build.less2css(function() {
+    return build.img2dist(function() {
+      return build.css2dist(function() {
+        return build.js2dist(function() {
           return build.tpl2dist(function() {
             return cb();
           });

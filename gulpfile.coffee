@@ -56,10 +56,10 @@ gulp.task 'server',->
     build.server()
 
 _builder = (cb)->
-    build.img2dist ->
-        build.less2css ->
-            build.js2dist ->
-                build.css2dist ->
+    build.less2css ->
+        build.img2dist ->
+            build.css2dist ->
+                build.js2dist ->
                     build.tpl2dist -> cb()
 gulp.task 'dev',->
     build.less2css ->

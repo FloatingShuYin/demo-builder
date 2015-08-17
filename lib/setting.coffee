@@ -63,7 +63,6 @@ module.exports =
   
   # 监控的文件
   watchFiles: [
-      "#{_srcName}/css/**/*.css"
       "#{_srcName}/less/**/*.less"
       "#{_srcName}/img/**/*.{png,jpg,gif}"
       "#{_srcName}/html/**/*.{html,php,ejs}"

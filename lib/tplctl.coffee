@@ -32,7 +32,7 @@ _replaceImg = (source)->
         # console.log map
         key = map.replace(imgPathReg, '')
         val = _staticPath + '/img/' + (if _.has(imgMap,key) and setting.env isnt 'dev' then imgMap[key].distname else key + '?t=' + String(new Date().getTime()).substr(0,8))
-        setting.env is 'dev' and console.log "#{map}--> #{val}"
+        console.log "#{map}--> #{val}"
         _str = str.replace(map, val)
         return _str
     return  file_source

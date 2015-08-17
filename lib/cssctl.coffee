@@ -24,7 +24,9 @@ _mapPath        = setting.mapPath
 _hashLen        = setting.hashLength
 _cssMapPath     = path.join(_mapPath, setting.cssMap)
 _imgMapPath     = path.join(_mapPath, setting.imgMap)
-
+_staticPath = setting.staticPath
+_env = setting.env
+imgPathReg = if _env is "dev" then "../img/" else "#{_staticPath}/img/"
 
 # 将css背景图替换成带hash版本标记的
 _stream = (files,cb,cb2)->
@@ -45,12 +47,13 @@ _stream = (files,cb,cb2)->
             _nameObj.hash = Tools.md5(source.contents)
             _cssBgReg = /url\s*\(([^\)]+)\)/g
             _source = String(source.contents).replace _cssBgReg, (str,map)->
-                if map.indexOf('fonts/') isnt -1 or map.indexOf('font/') isnt -1 or map.indexOf('#') isnt -1
+                if map.indexOf('fonts/') isnt -1 or map.indexOf('font/') isnt -1 or map.indexOf('#') isnt -1 or map.indexOf('data:') isnt -1 or map.indexOf('about:') isnt -1
                     return str
                 else
                     key = map.replace('../img/', '')
                              .replace(/(^\'|\")|(\'|\"$)/g, '')
-                    val = if _.has(imgMap,key) then '../img/' + imgMap[key].distname else ( if map.indexOf('data:') > -1 or map.indexOf('about:') > -1 then map else '../img/' + key + '?=t' + String(new Date().getTime()).substr(0,8) )
+                    val = imgPathReg + (if _.has(imgMap,key) and _env isnt 'dev' then imgMap[key].distname else key + '?=t' + String(new Date().getTime()).substr(0,8))
+                    console.log "#{map}--> #{val}"
                     return str.replace(map, val)
             cb(_nameObj,_source)
         .on 'end',cb2

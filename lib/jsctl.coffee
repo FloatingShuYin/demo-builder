@@ -39,12 +39,11 @@ _stream = (files,cb,cb2)->
             _minCode = uglify.minify(res.contents.toString(),{fromString: true})
             _code = _minCode.code
             _source = _code.replace jsImgRegex,(str,map)->
-                console.log map
                 key = map.replace(/(^\'|\")|(\'|\"$)/g, '')
                          .replace('/img/', '')
                 val = if _.has(imgMap,key) and _env isnt 'dev' then imgMap[key].distname else ( if map.indexOf('data:') > -1 or map.indexOf('about:') > -1 then map else key + '?=t' + String(new Date().getTime()).substr(0,8) )
+                console.log "#{map}--> #{val}"
                 _str = str.replace(key, val)
-                console.log _str
                 return _str
             # console.log _source
             _path = res.path.replace(/\\/g,'/')
