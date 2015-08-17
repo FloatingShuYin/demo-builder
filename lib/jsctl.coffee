@@ -42,8 +42,8 @@ _stream = (files,cb,cb2)->
                 key = map.replace(/(^\'|\")|(\'|\"$)/g, '')
                          .replace('/img/', '')
                 val = if _.has(imgMap,key) and _env isnt 'dev' then imgMap[key].distname else ( if map.indexOf('data:') > -1 or map.indexOf('about:') > -1 then map else key + '?=t' + String(new Date().getTime()).substr(0,8) )
-                console.log "#{map}--> #{val}"
                 _str = str.replace(key, val)
+                console.log "#{str}--> #{_str}"
                 return _str
             # console.log _source
             _path = res.path.replace(/\\/g,'/')
