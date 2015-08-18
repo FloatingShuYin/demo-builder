@@ -3,15 +3,16 @@
     "distPathName": "dist",
     "tplOutName": "html",
     "hashLength": 10,
+    "isMinify":false,
     "envs": {
         "test": {
-            "cndDomain": "test.xxx.com"
+            "cdnDomain": "test.static-xxx.com"
         },
         "pre": {
-            "cndDomain": "pre.xxx.com"
+            "cdnDomain": "pre.static-xxx.com"
         },
         "www": {
-            "cndDomain": "www.xxx.com"
+            "cdnDomain": "www.static-xxx.com"
         }
     }
 }

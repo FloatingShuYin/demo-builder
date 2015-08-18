@@ -148,7 +148,7 @@ Tools =
         jsonData = JSON.stringify _map, null, 2
 
         #更新imgMap
-        not fs.existsSync(_mapPath) and butil.mkdirsSync(_mapPath)
+        not fs.existsSync(_mapPath) and Tools.mkdirsSync(_mapPath)
         fs.writeFileSync path.join(_mapPath, setting.imgMap), jsonData, 'utf8'
         gutil.log color.green "#{setting.imgMap} build success"
         
